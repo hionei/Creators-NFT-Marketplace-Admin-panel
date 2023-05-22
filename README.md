@@ -1,250 +1,84 @@
-Contribution: 2021-06-18 20:00
+# Running locally
 
-Contribution: 2021-06-23 20:00
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Contribution: 2021-07-05 20:00
+## Available Scripts
 
-Contribution: 2021-07-07 20:00
+In the project directory, you can run:
 
-Contribution: 2021-07-07 20:01
+### `npm start`
 
-Contribution: 2021-07-07 20:02
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Contribution: 2021-07-08 20:00
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Contribution: 2021-07-08 20:01
+### `npm test`
 
-Contribution: 2021-07-08 20:02
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Contribution: 2021-07-08 20:03
+### `npm run build`
 
-Contribution: 2021-07-09 20:00
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Contribution: 2021-07-09 20:01
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Contribution: 2021-07-09 20:02
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Contribution: 2021-07-12 20:00
+### `npm run eject`
 
-Contribution: 2021-07-15 20:00
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-Contribution: 2021-07-20 20:00
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Contribution: 2021-07-26 20:00
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-Contribution: 2021-07-26 20:01
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-Contribution: 2021-07-26 20:02
+# AWS setup for the frontend
+The frontend, being a static site with static assets, can easily be served from an AWS S3 bucket configured for static website hosting. 
+The benefits of this are:
+- Easy deployment. 
+- Resource friendly. 
+- Caching can be done in CloudFront (not done but should be done for prod especially). 
+- Decouples the implementation from SSL setup (**not done now but should be done in CloudFront**)
 
-Contribution: 2021-07-26 20:03
+### S3 bucket setup
+The staging bucket configured for web site hosting is `nfty-meta-frontend-staging`. This site is publicly accessible (read-only).
+Public access is managed through a bucket policy (bucket details -> permissions -> bucket policy):
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::nfty-meta-frontend-staging/*"
+        }
+    ]
+}
+```
 
-Contribution: 2021-07-27 20:00
+No other setup has been needed, nor done. 
+However, what is needed to enable HTTPS access is a TLS certificate and a domain name. These should be configured in CloudFront and Route53.
 
-Contribution: 2021-07-27 20:01
+# Continuous deployment
+The site is configured to deploy automatically to the bucket when a new commit is done in branch `accept`. 
+The pipeline implementation is done in `.circleci/config.yaml`.
 
-Contribution: 2021-07-27 20:02
+The CircleCI pipeline os configured with these environment variables defined on the CircleCI project:
+- AWS_ACC_ACCESS_KEY_ID - same as for the backend
+- AWS_ACC_DEFAULT_REGION - same as for the backend
+- AWS_ACC_SECRET_ACCESS_KEY - same as for the backend
+- AWS_ACC_FRONTEND_BUCKET - the name of the S3 bucket where the site should be deployed
+- AWS_ACC_NFTY_API_URL - the URL of the API. It's best to configure it here (and not hardcode it somewhere in the code) because it can easily be changed if the API is move and more importanly it allows the pipeline to be reused for production as well - just create different env vars.
 
-Contribution: 2021-07-27 20:03
-
-Contribution: 2021-07-28 20:00
-
-Contribution: 2021-07-28 20:01
-
-Contribution: 2021-07-28 20:02
-
-Contribution: 2021-08-02 20:00
-
-Contribution: 2021-08-02 20:01
-
-Contribution: 2021-08-02 20:02
-
-Contribution: 2021-08-02 20:03
-
-Contribution: 2021-08-03 20:00
-
-Contribution: 2021-08-04 20:00
-
-Contribution: 2021-08-04 20:01
-
-Contribution: 2021-08-04 20:02
-
-Contribution: 2021-08-09 20:00
-
-Contribution: 2021-08-09 20:01
-
-Contribution: 2021-08-09 20:02
-
-Contribution: 2021-08-09 20:03
-
-Contribution: 2021-08-20 20:00
-
-Contribution: 2021-08-20 20:01
-
-Contribution: 2021-08-20 20:02
-
-Contribution: 2021-08-20 20:03
-
-Contribution: 2021-08-20 20:04
-
-Contribution: 2021-08-24 20:00
-
-Contribution: 2021-08-24 20:01
-
-Contribution: 2021-08-27 20:00
-
-Contribution: 2021-08-27 20:01
-
-Contribution: 2021-08-27 20:02
-
-Contribution: 2021-08-27 20:03
-
-Contribution: 2021-08-27 20:04
-
-Contribution: 2021-09-03 20:00
-
-Contribution: 2021-09-03 20:01
-
-Contribution: 2021-09-03 20:02
-
-Contribution: 2021-09-03 20:03
-
-Contribution: 2021-09-03 20:04
-
-Contribution: 2021-09-09 20:00
-
-Contribution: 2021-09-09 20:01
-
-Contribution: 2021-09-09 20:02
-
-Contribution: 2021-09-09 20:03
-
-Contribution: 2021-09-09 20:04
-
-Contribution: 2021-09-10 20:00
-
-Contribution: 2021-09-20 20:00
-
-Contribution: 2021-09-20 20:01
-
-Contribution: 2021-09-20 20:02
-
-Contribution: 2021-09-20 20:03
-
-Contribution: 2021-09-28 20:00
-
-Contribution: 2021-09-28 20:01
-
-Contribution: 2021-09-28 20:02
-
-Contribution: 2021-09-29 20:00
-
-Contribution: 2021-09-29 20:01
-
-Contribution: 2021-09-30 20:00
-
-Contribution: 2021-10-01 20:00
-
-Contribution: 2021-10-04 20:00
-
-Contribution: 2021-10-08 20:00
-
-Contribution: 2021-10-08 20:01
-
-Contribution: 2021-10-12 20:00
-
-Contribution: 2021-10-12 20:01
-
-Contribution: 2021-10-14 20:00
-
-Contribution: 2021-10-14 20:01
-
-Contribution: 2021-10-14 20:02
-
-Contribution: 2021-10-14 20:03
-
-Contribution: 2021-10-15 20:00
-
-Contribution: 2021-10-15 20:01
-
-Contribution: 2021-10-19 20:00
-
-Contribution: 2021-10-19 20:01
-
-Contribution: 2021-10-27 20:00
-
-Contribution: 2021-10-27 20:01
-
-Contribution: 2021-10-27 20:02
-
-Contribution: 2021-10-28 20:00
-
-Contribution: 2021-11-04 20:00
-
-Contribution: 2021-11-04 20:01
-
-Contribution: 2021-11-04 20:02
-
-Contribution: 2021-11-04 20:03
-
-Contribution: 2021-11-04 20:04
-
-Contribution: 2021-11-15 20:00
-
-Contribution: 2021-11-15 20:01
-
-Contribution: 2021-11-16 20:00
-
-Contribution: 2021-11-16 20:01
-
-Contribution: 2021-11-16 20:02
-
-Contribution: 2021-11-24 20:00
-
-Contribution: 2021-11-26 20:00
-
-Contribution: 2021-11-26 20:01
-
-Contribution: 2021-11-26 20:02
-
-Contribution: 2021-11-29 20:00
-
-Contribution: 2021-11-29 20:01
-
-Contribution: 2021-11-29 20:02
-
-Contribution: 2021-11-29 20:03
-
-Contribution: 2021-11-29 20:04
-
-Contribution: 2021-12-03 20:00
-
-Contribution: 2021-12-03 20:01
-
-Contribution: 2021-12-03 20:02
-
-Contribution: 2021-12-07 20:00
-
-Contribution: 2021-12-07 20:01
-
-Contribution: 2021-12-07 20:02
-
-Contribution: 2021-12-07 20:03
-
-Contribution: 2021-12-07 20:04
-
-Contribution: 2021-12-09 20:00
-
-Contribution: 2021-12-09 20:01
-
-Contribution: 2021-12-09 20:02
-
-Contribution: 2021-12-09 20:03
-
-Contribution: 2021-12-13 20:00
-
-Contribution: 2021-12-15 20:00
-
-Contribution: 2021-12-15 20:01
-
-Contribution: 2021-12-15 20:02
-
+# Accessing the frontend
+The frontend can be accessed at http://nfty-meta-frontend-staging.s3-website.us-east-2.amazonaws.com/. 
+Make sure to fill in all form fields (image is optional). 
